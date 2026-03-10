@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Produtos</title>
+    <title>Cadastro de Produtos</title>
 </head>
 <body class="bg-[oklch(97%_0.014_254.604)] min-h-screen flex flex-col items-center p-10">
 
     <h1 class="text-slate-800 font-light text-3xl mb-10">Lista de Produtos</h1>
 
-    <!-- Inputs -->
     <div class="flex flex-col gap-4 w-full max-w-sm">
         <input type="text" id="nome" placeholder="Nome" 
             class="w-full p-3 rounded-xl bg-white text-gray-800 border-2 border-transparent focus:border-blue-500 outline-none transition-all">
@@ -26,7 +25,6 @@
         </button>
     </div>
 
-    <!-- Tabela -->
     <div class="mt-10 w-full max-w-2xl bg-white rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full">
             <thead class="bg-slate-100 text-slate-600">
@@ -37,13 +35,13 @@
                 </tr>
             </thead>
             <tbody id="tabela-corpo">
-                <!-- Linhas entram aqui -->
+             
             </tbody>
         </table>
     </div>
 
     <script>
-        // Função para Adicionar e Limpar
+        
         function adicionarProduto() {
             const nome = document.getElementById('nome');
             const codigo = document.getElementById('codigo');
@@ -59,15 +57,13 @@
                 <td class="p-4 border-b text-slate-500">${codigo.value}</td>
                 <td class="p-4 border-b text-slate-700">${qtd.value}</td>
             `;
-
-            // Limpa e foca no primeiro campo
+          
             nome.value = "";
             codigo.value = "";
             qtd.value = "";
             nome.focus();
         }
 
-        // Lógica do Enter para pular de campo
         const campos = [document.getElementById('nome'), document.getElementById('codigo'), document.getElementById('quantidade')];
 
         campos.forEach((campo, index) => {
@@ -75,9 +71,9 @@
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     if (index < campos.length - 1) {
-                        campos[index + 1].focus(); // Pula pro próximo
+                        campos[index + 1].focus(); 
                     } else {
-                        adicionarProduto(); // No último, ele cadastra!
+                        adicionarProduto(); 
                     }
                 }
             });
