@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Produtos</title>
+</head>
+<body class="bg-[oklch(97%_0.014_254.604)] min-h-screen flex flex-col items-center p-10">
+
+    <h1 class="text-slate-800 font-light text-3xl mb-10">Lista de Produtos</h1>
+
+    <!-- Inputs -->
+    <div class="flex flex-col gap-4 w-full max-w-sm">
+        <input type="text" id="nome" placeholder="Nome" 
+            class="w-full p-3 rounded-xl bg-white text-gray-800 border-2 border-transparent focus:border-blue-500 outline-none transition-all">
+        
+        <input type="text" id="codigo" placeholder="Código" 
+            class="w-full p-3 rounded-xl bg-white text-gray-800 border-2 border-transparent focus:border-blue-500 outline-none transition-all">
+        
+        <input type="text" id="quantidade" placeholder="Quantidade" 
+            class="w-full p-3 rounded-xl bg-white text-gray-800 border-2 border-transparent focus:border-blue-500 outline-none transition-all">
+        
+        <button onclick="adicionarProduto()" class="bg-blue-600 text-white font-bold p-3 rounded-xl hover:bg-blue-700 transition-all">
+            Cadastrar
+        </button>
+    </div>
+
+    <!-- Tabela -->
+    <div class="mt-10 w-full max-w-2xl bg-white rounded-2xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-100 text-slate-600">
+                <tr>
+                    <th class="p-4 text-left">Produto</th>
+                    <th class="p-4 text-left">Código</th>
+                    <th class="p-4 text-left">Qtd</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+                <!-- Linhas entram aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Função para Adicionar e Limpar
+        function adicionarProduto() {
+            const nome = document.getElementById('nome');
+            const codigo = document.getElementById('codigo');
+            const qtd = document.getElementById('quantidade');
+
+            if (!nome.value || !codigo.value || !qtd.value) return alert("Preencha tudo!");
+
+            const tabela = document.getElementById('tabela-corpo');
+            const novaLinha = tabela.insertRow();
+
+            novaLinha.innerHTML = `
+                <td class="p-4 border-b text-slate-700 font-medium">${nome.value}</td>
+                <td class="p-4 border-b text-slate-500">${codigo.value}</td>
+                <td class="p-4 border-b text-slate-700">${qtd.value}</td>
+            `;
+
+            // Limpa e foca no primeiro campo
+            nome.value = "";
+            codigo.value = "";
+            qtd.value = "";
+            nome.focus();
+        }
+
+        // Lógica do Enter para pular de campo
+        const campos = [document.getElementById('nome'), document.getElementById('codigo'), document.getElementById('quantidade')];
+
+        campos.forEach((campo, index) => {
+            campo.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (index < campos.length - 1) {
+                        campos[index + 1].focus(); // Pula pro próximo
+                    } else {
+                        adicionarProduto(); // No último, ele cadastra!
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
